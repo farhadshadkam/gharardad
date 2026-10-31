@@ -84,10 +84,10 @@ function defaultAccounts(s){
     sheba:s['acc'+i+'.sheba']||'',shetab:s['acc'+i+'.shetab']||''}));
 }
 function blankData(){
-  return {centerName:'',headName:'',gDir:'',gDirName:'',partyTitle:'',partyRep:'',partyPost:'',
+  return {centerName:'',headName:'',gDir:'گلستان', gDirName:'حمزه کرایلو',partyTitle:'',partyRep:'',partyPost:'',
     partyReg:'',partyTel:'',partyAddr:'',letterNo:'',letterDate:'',
     courseTitle:'',courseCode:'',khoshe:'services',stdHours:0,sessionHours:4,nLow:0,nHigh:0,
-    workshop:'',instructor:'',days:'',startTime:'',startDate:'',endDate:'',
+    workshop:'',instructor:'',days:'شنبه تا سه‌شنبه',startTime:'8 تا 12',startDate:'',endDate:'',
     items:ITEMS.map(i=>({...i})), accounts:defaultAccounts(state.settings)};
 }
 
