@@ -6,6 +6,7 @@ const DEFAULT_SETTINGS = {
  'refRate.industry':577500,'refRate.agriculture':577500,'refRate.services':480000,'refRate.culture':375000,
  'hourly.industry':144375,'hourly.agriculture':144375,'hourly.services':120000,'hourly.culture':93750,
  'fee.register':300000,'fee.counseling':300000,'fee.exam':1300000,'contract.year':'1405',
+ 'gDir.addr':'گرگان - خیابان پنجم آذر - انتهای بلوار حسام','gDir.phone':'322406620',
  'acc1.title':'درآمد حاصل از خدمات آموزشی','acc1.owner':'خزانه‌داری کل کشور','acc1.sheba':'IR420100004001018703042310','acc1.shetab':'4201-0000-4001-0187-0304-2310',
  'acc2.title':'درآمد حاصل از حق ثبت‌نام','acc2.owner':'حساب موقت مرکز آموزش فنی و حرفه‌ای','acc2.sheba':'IR330100004001018703042278','acc2.shetab':'3301-0000-4001-0187-0304-2278',
  'acc3.title':'درآمد حاصل از حق مشاوره','acc3.owner':'حساب موقت مرکز آموزش فنی و حرفه‌ای','acc3.sheba':'IR110100004001018703042286','acc3.shetab':'1101-0000-4001-0187-0304-2286',
