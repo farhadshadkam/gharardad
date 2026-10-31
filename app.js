@@ -1,5 +1,5 @@
 /* ================= سامانه صدور قراردادهای آموزشی ================= */
-const APPS_SCRIPT_URL = 'PASTE_APPS_SCRIPT_WEB_APP_URL_HERE';
+const APPS_SCRIPT_URL = 'AKfycbwXjADq0Y-i0QCAIe8v2b-XQgdXO2NDoQ2JNz9Zvp3O4lPIM4mXG1e36CClhNfSPaXTRw';
 
 /* مقادیر پیش‌فرض ۱۴۰۵ (در صورت اتصال، از تب Settings گوگل‌شیت بازنویسی می‌شود) */
 const DEFAULT_SETTINGS = {
