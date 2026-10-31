@@ -38,32 +38,26 @@ async function exportWord(){
   const L=[];
 
   /* --- ابزارهای ساخت سند (راست‌به‌چپ، B Nazanin) --- */
-  const T=(t,o={})=>new docx.TextRun({text:String(t),bold:!!o.b,size:o.s||26,sizeComplexScript:o.s||26,rightToLeft:true,font:'B Nazanin'});
+  const T=(t,o={})=>new docx.TextRun({text:String(t),bold:!!o.b,size:o.s||24,sizeComplexScript:o.s||24,rightToLeft:true,font:'B Nazanin'});
   const P=(t,o={})=>new docx.Paragraph({bidirectional:true,
-    alignment:o.a??docx.AlignmentType.JUSTIFIED,spacing:{after:o.af??120,line:o.ln??330},
+    alignment:o.a??docx.AlignmentType.JUSTIFIED,spacing:{after:o.af??120,line:o.ln??320},
     children:Array.isArray(t)?t:[T(t,o)]});
   const EMPTY=()=>new docx.Paragraph({text:'',bidirectional:true});
   const C=(t,o={})=>new docx.TableCell({verticalAlign:docx.VerticalAlign.CENTER,
     width:o.w?{size:o.w,type:docx.WidthType.PERCENTAGE}:undefined,
     shading:o.f?{fill:o.f}:undefined,
     children:[new docx.Paragraph({bidirectional:true,alignment:docx.AlignmentType.CENTER,
-      spacing:{after:0},children:[T(t,{b:o.b,s:o.s||22})]})]});
+      spacing:{after:0},children:[T(t,{b:o.b,s:o.s||20})]})]});
   const R=(cs,o={})=>new docx.TableRow({children:cs,tableHeader:!!o.h});
   const TB=rs=>new docx.Table({visuallyRightToLeft:true,width:{size:100,type:docx.WidthType.PERCENTAGE},rows:rs});
 
   /* --- سربرگ --- */
-  L.push(P('بسمه تعالی',{a:docx.AlignmentType.CENTER,b:1}));
-  L.push(P('جمهوری اسلامی ایران',{a:docx.AlignmentType.CENTER,s:24}));
-  L.push(P('وزارت تعاون، کار و رفاه اجتماعی',{a:docx.AlignmentType.CENTER,s:24}));
-  L.push(P(gdirFull(d),{a:docx.AlignmentType.CENTER,b:1}));
-  L.push(P(d.centerName||'مرکز آموزش فنی و حرفه‌ای .........',{a:docx.AlignmentType.CENTER,b:1,s:28}));
-  L.push(P('برگ قرارداد',{a:docx.AlignmentType.CENTER,b:1,s:32,af:80}));
-  L.push(P(d.partyTitle||'عنوان دستگاه/شرکت/مؤسسه طرف قرارداد',{a:docx.AlignmentType.CENTER,b:1}));
-  L.push(P(`شماره: ${faD(no)}          تاریخ: ${today}`,{a:docx.AlignmentType.CENTER,s:24}));
+  L.push(P('قرارداد همکاری آموزشی',{a:docx.AlignmentType.CENTER,b:1,s:30,af:160}));
+  L.push(P(`شماره: ${faD(no)}          تاریخ: ${today}`,{a:docx.AlignmentType.CENTER,s:22}));
   L.push(EMPTY());
 
   /* --- مقدمه --- */
-  L.push(P('مقدمه',{b:1,a:docx.AlignmentType.CENTER,af:120}));
+  L.push(P('مقدمه',{b:1,a:docx.AlignmentType.RIGHT,af:120}));
   L.push(P(`به استناد شیوه‌نامه اجرایی خدمات آموزشی و فرهنگی سازمان آموزش فنی و حرفه‌ای کشور و در راستای ارتقای سطح شایستگی‌های حرفه‌ای متقاضیان، این قرارداد آموزشی بین ${d.partyTitle} به نمایندگی ${d.partyRep} به‌عنوان ${d.partyPost}، به آدرس: ${d.partyAddr||'............'} به شماره تلفن ${d.partyTel||'............'}، که از این پس طرف اول نامیده می‌شود، و ${gdirFull(d)} به نمایندگی ${d.gDirName} به‌عنوان مدیرکل به نشانی: ${s['gDir.addr']||'............'} به شماره تلفن ${s['gDir.phone']||'............'} که از این پس طرف دوم نامیده می‌شود، به شرح ذیل توافق و به امضاء می‌رسد.`));
   L.push(EMPTY());
 
@@ -98,7 +92,7 @@ async function exportWord(){
     R([C('۱'),C(d.workshop||'—'),C(d.instructor||'—'),C(d.days||'—'),C(d.startTime||'—'),
        C(`از ${d.startDate||'—'} تا ${d.endDate||'—'}`),C(faD(c.total)),C(faD(c.pd)),C(fmt(c.netRate)),C(fmt(c.initial))]),
     R([new docx.TableCell({columnSpan:7,verticalAlign:docx.VerticalAlign.CENTER,
-        children:[P('جمع',{a:docx.AlignmentType.CENTER,b:1,s:22,af:0})]}),
+        children:[P('جمع',{a:docx.AlignmentType.CENTER,b:1,s:20,af:0})]}),
        C(faD(c.pd),{b:1}),C(fmt(c.netRate),{b:1}),C(fmt(c.initial),{b:1})])
   ]));
   L.push(EMPTY());
@@ -112,10 +106,10 @@ async function exportWord(){
   d.items.forEach((it,i)=>AR.push(R([C(faD(i+1)),C(it.name),C(it.owner===1?'✓':'−'),
     C(it.owner===2?'✓':'−'),C(faD(it.w)+'٪'),C(fmt(c.ref*it.w/100)),C(fmt(Math.round(c.netRate*it.w/100)))])));
   AR.push(R([new docx.TableCell({columnSpan:4,verticalAlign:docx.VerticalAlign.CENTER,shading:{fill:'F5F5F5'},
-      children:[P('جمع',{a:docx.AlignmentType.CENTER,b:1,s:22,af:0})]}),
+      children:[P('جمع',{a:docx.AlignmentType.CENTER,b:1,s:20,af:0})]}),
     C('۱۰۰٪',{b:1,f:'F5F5F5'}),C(fmt(c.ref),{b:1,f:'F5F5F5'}),C(fmt(c.netRate),{b:1,f:'F5F5F5'})]));
   AR.push(R([new docx.TableCell({columnSpan:6,verticalAlign:docx.VerticalAlign.CENTER,shading:{fill:'FFF3CD'},
-      children:[P('جمع هزینه‌ی یک نفر-روز خدمات آموزشی (ریال)',{a:docx.AlignmentType.CENTER,b:1,s:22,af:0})]}),
+      children:[P('جمع هزینه‌ی یک نفر-روز خدمات آموزشی (ریال)',{a:docx.AlignmentType.CENTER,b:1,s:20,af:0})]}),
     C(fmt(c.netRate),{b:1,f:'FFF3CD'})]));
   L.push(TB(AR)); L.push(EMPTY());
 
@@ -128,11 +122,11 @@ async function exportWord(){
     C('کد شتاب ۳۰ رقمی',{b:1,f:'E8EDF3',w:14}),C('شماره شبا',{b:1,f:'E8EDF3',w:16})],{h:1})];
   d.accounts.forEach((a,i)=>AC.push(R([C(faD(i+1)),C(a.title),C(a.owner),C(fmt(amounts[i])),C(a.shetab),C(a.sheba)])));
   AC.push(R([new docx.TableCell({columnSpan:3,verticalAlign:docx.VerticalAlign.CENTER,shading:{fill:'E2EFDA'},
-      children:[P('جمع کل قرارداد',{a:docx.AlignmentType.CENTER,b:1,s:22,af:0})]}),
+      children:[P('جمع کل قرارداد',{a:docx.AlignmentType.CENTER,b:1,s:20,af:0})]}),
     C(fmt(c.grand),{b:1,f:'E2EFDA'}),
     new docx.TableCell({columnSpan:2,children:[P('',{af:0})]})]));
   L.push(TB(AC));
-  L.push(P('تبصره- ردیف‌های ۱ و ۵ جدول فوق به حساب خزانه‌داری کل واریز می‌گردد و ردیف‌های ۲ تا ۴ (حق ثبت‌نام، مشاوره و آزمون) به حساب موقت مرکز واریز و توسط کارشناس مرکز در پورتال سازمان تودیع می‌گردد. دریافت هرگونه وجه از کارآموزان ممنوع است.',{s:24}));
+  L.push(P('تبصره- ردیف‌های ۱ و ۵ جدول فوق به حساب خزانه‌داری کل واریز می‌گردد و ردیف‌های ۲ تا ۴ (حق ثبت‌نام، مشاوره و آزمون) به حساب موقت مرکز واریز و توسط کارشناس مرکز در پورتال سازمان تودیع می‌گردد. دریافت هرگونه وجه از کارآموزان ممنوع است.',{s:22}));
   L.push(EMPTY());
 
   /* --- مواد ۵ تا ۱۱ --- */
@@ -177,7 +171,7 @@ async function exportWord(){
   /* --- امضاها --- */
   const NB={style:docx.BorderStyle.NONE,size:0,color:'FFFFFF'};
   const SP=(t,s)=>new docx.Paragraph({bidirectional:true,alignment:docx.AlignmentType.CENTER,
-    spacing:{after:60},children:[T(t,{b:!!s,s:26})]});
+    spacing:{after:60},children:[T(t,{b:!!s,s:24})]});
   L.push(EMPTY());
   L.push(new docx.Table({visuallyRightToLeft:true,width:{size:100,type:docx.WidthType.PERCENTAGE},
     borders:{top:NB,bottom:NB,left:NB,right:NB,insideHorizontal:NB,insideVertical:NB},
@@ -190,8 +184,8 @@ async function exportWord(){
 
   /* --- بسته‌بندی --- */
   const doc=new docx.Document({
-    creator:'سامانه قراردادهای آموزشی', title:'قرارداد آموزشی '+no,
-    styles:{default:{document:{run:{font:'B Nazanin',size:26}}}},
+    creator:'سامانه قراردادهای آموزشی', title:'قرارداد همکاری آموزشی '+no,
+    styles:{default:{document:{run:{font:'B Nazanin',size:24}}}},
     sections:[{properties:{page:{size:{width:11906,height:16838},
       margin:{top:1134,bottom:1134,right:1134,left:1134}}},children:L}]});
   const blob=await docx.Packer.toBlob(doc);
