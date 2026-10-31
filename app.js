@@ -1,5 +1,5 @@
 /* ================= سامانه صدور قراردادهای آموزشی ================= */
-const APPS_SCRIPT_URL = 'AKfycbwXjADq0Y-i0QCAIe8v2b-XQgdXO2NDoQ2JNz9Zvp3O4lPIM4mXG1e36CClhNfSPaXTRw';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwXjADq0Y-i0QCAIe8v2b-XQgdXO2NDoQ2JNz9Zvp3O4lPIM4mXG1e36CClhNfSPaXTRw/exec';
 
 /* مقادیر پیش‌فرض ۱۴۰۵ (در صورت اتصال، از تب Settings گوگل‌شیت بازنویسی می‌شود) */
 const DEFAULT_SETTINGS = {
