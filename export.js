@@ -3,7 +3,12 @@ function download(blob,name){
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name; a.click();
   setTimeout(()=>URL.revokeObjectURL(a.href),5000);
 }
-
+/* عنوان کامل اداره کل — اگر کاربر فقط نام استان وارد کرده باشد، به‌صورت کامل ساخته می‌شود */
+function gdirFull(d){
+  const t=(d.gDir||'').trim();
+  return t ? (t.includes('اداره کل') ? t : 'اداره کل آموزش فنی و حرفه‌ای استان ' + t)
+           : 'اداره کل آموزش فنی و حرفه‌ای استان .........';
+}
 /* تبدیل عدد به حروف فارسی */
 function num2fa(n){
   n=Math.round(n); if(n===0) return 'صفر';
@@ -48,7 +53,7 @@ async function exportWord(){
   L.push(P('بسمه تعالی',{a:docx.AlignmentType.CENTER,b:1}));
   L.push(P('جمهوری اسلامی ایران',{a:docx.AlignmentType.CENTER,s:24}));
   L.push(P('وزارت تعاون، کار و رفاه اجتماعی',{a:docx.AlignmentType.CENTER,s:24}));
-  L.push(P(d.gDir||'اداره کل آموزش فنی و حرفه‌ای استان .........',{a:docx.AlignmentType.CENTER,b:1}));
+  L.push(P(gdirFull(d),{a:docx.AlignmentType.CENTER,b:1}));
   L.push(P(d.centerName||'مرکز آموزش فنی و حرفه‌ای .........',{a:docx.AlignmentType.CENTER,b:1,s:28}));
   L.push(P('برگ قرارداد',{a:docx.AlignmentType.CENTER,b:1,s:32,af:80}));
   L.push(P(d.partyTitle||'عنوان دستگاه/شرکت/مؤسسه طرف قرارداد',{a:docx.AlignmentType.CENTER,b:1}));
