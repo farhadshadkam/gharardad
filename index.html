@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>سامانه صدور قراردادهای آموزشی</title>
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand" onclick="showHome()" style="cursor:pointer">
+    <div class="logo">ف‌ح</div>
+    <div><h1>سامانه صدور قراردادهای آموزشی</h1><span>مراکز آموزش فنی و حرفه‌ای — اجرای دولتی</span></div>
+  </div>
+  <nav class="topnav">
+    <button class="ghost" onclick="showHome()">خانه</button>
+    <button class="ghost" onclick="newContract()">قرارداد جدید</button>
+    <button class="ghost" onclick="showRetrieve()">ویرایش قرارداد</button>
+  </nav>
+</header>
+<div id="connBanner" class="banner hidden"></div>
+
+<main id="scrHome" class="screen">
+  <div class="hero">
+    <h2>صدور قرارداد آموزشی؛ سریع، دقیق، بدون کاغذبازی</h2>
+    <p>داده‌ها را وارد کنید تا محاسبات انجام شود و فایل‌های <b>Word</b> و <b>Excel</b> آماده دانلود گردد.
+       برای ویرایش مجدد هر قرارداد، به شماره قرارداد و کد رهگیری آن نیاز دارید — آن‌ها را نزد خود نگه دارید.</p>
+  </div>
+  <div class="cards">
+    <button class="bigcard" onclick="newContract()"><span class="ic">📄</span><b>صدور قرارداد جدید</b><small>ثبت اطلاعات طرفین، دوره و نهاده‌ها؛ محاسبه خودکار و صدور شماره و کد رهگیری</small></button>
+    <button class="bigcard" onclick="showRetrieve()"><span class="ic">🔎</span><b>بازیابی و ویرایش</b><small>با شماره قرارداد و کد رهگیری، قرارداد را اصلاح و خروجی‌ها را دوباره بگیرید</small></button>
+  </div>
+</main>
+
+<main id="scrForm" class="screen hidden">
+  <div id="editBanner" class="banner ok hidden"></div>
+  <ol class="stepper" id="stepper">
+    <li data-s="1" class="active"><span>۱</span>طرفین قرارداد</li>
+    <li data-s="2"><span>۲</span>مشخصات دوره</li>
+    <li data-s="3"><span>۳</span>نهاده‌های آموزشی</li>
+    <li data-s="4"><span>۴</span>حساب‌ها و ثبت</li>
+  </ol>
+  <div class="layout">
+    <section class="card">
+
+      <fieldset id="step1" class="step">
+        <legend>فرم اول — اطلاعات طرفین</legend>
+        <label>نام مرکز آموزش فنی و حرفه‌ای *</label><input id="fCenter"/>
+        <label>نام و نام خانوادگی رئیس مرکز *</label><input id="fHead"/>
+        <label>عنوان اداره کل آموزش فنی و حرفه‌ای *</label><input id="fGDir"/>
+        <label>نام و نام خانوادگی مدیرکل *</label><input id="fGDirName"/>
+        <label>عنوان دستگاه / شرکت / مؤسسه طرف قرارداد (نهاد ۱) *</label><input id="fParty"/>
+        <label>نام و نام خانوادگی نماینده طرف قرارداد *</label><input id="fRep"/>
+        <label>عنوان پست سازمانی نماینده *</label><input id="fPost"/>
+        <div class="grid2">
+          <div><label>شماره ثبت / شناسه ملی طرف قرارداد (اختیاری)</label><input id="fReg"/></div>
+          <div><label>تلفن (اختیاری)</label><input id="fTel"/></div>
+        </div>
+        <label>نشانی طرف قرارداد (اختیاری)</label><input id="fAddr"/>
+        <div class="grid2">
+          <div><label>شماره نامه دستگاه (اختیاری)</label><input id="fLetterNo"/></div>
+          <div><label>تاریخ نامه (اختیاری)</label><input id="fLetterDate" placeholder="۱۴۰۵/۰۷/۲۹"/></div>
+        </div>
+      </fieldset>
+
+      <fieldset id="step2" class="step hidden">
+        <legend>فرم دوم — مشخصات دوره</legend>
+        <div class="grid2">
+          <div><label>عنوان دوره (استاندارد آموزشی) *</label><input id="fCourse"/></div>
+          <div><label>کد استاندارد (اختیاری)</label><input id="fCode"/></div>
+        </div>
+        <div class="grid2">
+          <div><label>خوشه آموزشی *</label>
+            <select id="fKhoshe">
+              <option value="services">خدمات</option>
+              <option value="industry">صنعت</option>
+              <option value="agriculture">کشاورزی</option>
+              <option value="culture">فرهنگ و هنر</option>
+            </select></div>
+          <div><label>ساعت آموزشی هر جلسه *</label>
+            <select id="fSession">
+              <option value="2">۲ ساعت</option><option value="2.5">۲٫۵ ساعت</option>
+              <option value="3">۳ ساعت</option><option value="3.5">۳٫۵ ساعت</option>
+              <option value="4" selected>۴ ساعت</option>
+            </select></div>
+        </div>
+        <div class="grid3">
+          <div><label>ساعت استاندارد دوره *</label><input id="fHours" type="number" min="1"/></div>
+          <div><label>کارآموزان دهک ۵ و پایین‌تر *</label><input id="fLow" type="number" min="0" value="0"/></div>
+          <div><label>کارآموزان دهک ۶ و بالاتر *</label><input id="fHigh" type="number" min="0" value="0"/></div>
+        </div>
+        <h3 class="subh">اطلاعات اجرای دوره (جدول ماده ۳)</h3>
+        <div class="grid2">
+          <div><label>نام کارگاه / مکان برگزاری</label><input id="fWorkshop"/></div>
+          <div><label>نام استاد</label><input id="fInstructor"/></div>
+        </div>
+        <div class="grid3">
+          <div><label>ایام هفته</label><input id="fDays" placeholder="شنبه تا چهارشنبه"/></div>
+          <div><label>ساعت برگزاری</label><input id="fStart" placeholder="۸ تا ۱۲"/></div>
+          <div><label>نفر-روز (خودکار)</label><input id="fPersonDays" readonly/></div>
+        </div>
+        <div class="grid2">
+          <div><label>تاریخ شروع</label><input id="fStartDate" placeholder="۱۴۰۵/۰۸/۰۶"/></div>
+          <div><label>تاریخ پایان</label><input id="fEndDate" placeholder="۱۴۰۵/۰۸/۱۵"/></div>
+        </div>
+      </fieldset>
+
+      <fieldset id="step3" class="step hidden">
+        <legend>فرم سوم — نهاده‌های آموزشی (آنالیز وزنی)</legend>
+        <p class="hint">وزن هر نهاده عددی صحیح بین ۱ تا ۲۵ است و جمع وزن‌ها باید دقیقاً ۱۰۰ شود.
+           نهاده‌هایی که متولیِ آن‌ها «نهاد ۱» انتخاب شود، از مبلغ مرجع کسر می‌گردند.</p>
+        <div class="sumline">جمع وزن‌ها: <b id="wSum">۰</b> از ۱۰۰ <span id="wState"></span></div>
+        <div class="tblwrap">
+          <table class="tbl" id="itemsTable">
+            <thead><tr><th>ردیف</th><th>نام نهاد آموزشی</th><th>وزن (٪)</th><th>متولی</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </fieldset>
+
+      <fieldset id="step4" class="step hidden">
+        <legend>حساب قرارداد و بازبینی نهایی</legend>
+        <p class="hint">مشخصات حساب‌ها پیش‌فرض پر شده و همین‌جا قابل اصلاح است؛ مبالغ خودکار محاسبه می‌شوند.</p>
+        <div class="tblwrap">
+          <table class="tbl" id="accTable">
+            <thead><tr><th>ردیف</th><th>عنوان حساب</th><th>صاحب حساب</th><th>مبلغ (ریال)</th><th>کد شتاب ۳۰ رقمی</th><th>شماره شبا</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <h3 class="subh">بازبینی اطلاعات</h3>
+        <div id="review" class="review"></div>
+        <div class="err" id="finalErr"></div>
+        <button id="btnSubmit" class="btn primary big">صدور قرارداد</button>
+      </fieldset>
+
+      <div class="navrow">
+        <button id="btnPrev" class="btn" onclick="prevStep()">مرحله قبل</button>
+        <button id="btnNext" class="btn primary" onclick="nextStep()">مرحله بعد</button>
+      </div>
+    </section>
+
+    <aside class="card summary">
+      <h3>محاسبات زنده</h3>
+      <div id="summaryBody" class="sumrows"></div>
+    </aside>
+  </div>
+</main>
+
+<main id="scrResult" class="screen hidden">
+  <div class="card resultcard">
+    <h2>✅ قرارداد با موفقیت ذخیره شد</h2>
+    <p>این دو کد را نزد خود نگه دارید؛ بازیابی، ویرایش و دریافت مجدد خروجی‌ها فقط با همین دو کد ممکن است.</p>
+    <div class="codes">
+      <div class="codechip"><span>شماره قرارداد</span><b id="resNo">—</b><button class="mini" onclick="copyVal('resNo',this)">کپی</button></div>
+      <div class="codechip"><span>کد رهگیری</span><b id="resCode">—</b><button class="mini" onclick="copyVal('resCode',this)">کپی</button></div>
+    </div>
+    <div class="dlrow">
+      <button class="btn primary" onclick="exportWord()">⬇️ دانلود فایل Word قرارداد</button>
+      <button class="btn teal" onclick="exportExcel()">⬇️ دانلود فایل Excel محاسبات</button>
+    </div>
+  </div>
+</main>
+
+<main id="scrRetrieve" class="screen hidden">
+  <div class="card narrow">
+    <h2>بازیابی و ویرایش قرارداد</h2>
+    <p class="hint">شماره قرارداد و کد رهگیری صادرشده را وارد کنید (مثلاً 1405001).</p>
+    <label>شماره قرارداد</label><input id="rNo" placeholder="1405001"/>
+    <label>کد رهگیری</label><input id="rCode" placeholder="۶ رقم"/>
+    <div class="err" id="rErr"></div>
+    <button class="btn primary big" onclick="retrieve()">بازیابی قرارداد</button>
+  </div>
+</main>
+
+<footer>سامانه صدور قراردادهای آموزشی — نسخه ۱٫۰ — مبالغ مرجع ۱۴۰۵</footer>
+
+<script src="https://unpkg.com/docx@8.5.0/build/index.umd.js"></script>
+<script src="https://unpkg.com/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="export.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
