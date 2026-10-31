@@ -1,5 +1,5 @@
 /* ================= سامانه صدور قراردادهای آموزشی ================= */
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwXjADq0Y-i0QCAIe8v2b-XQgdXO2NDoQ2JNz9Zvp3O4lPIM4mXG1e36CClhNfSPaXTRw/exec';
+const APPS_SCRIPT_URL = 'PASTE_APPS_SCRIPT_WEB_APP_URL_HERE';
 
 /* مقادیر پیش‌فرض ۱۴۰۵ (در صورت اتصال، از تب Settings گوگل‌شیت بازنویسی می‌شود) */
 const DEFAULT_SETTINGS = {
@@ -53,7 +53,7 @@ function jalaliToday(){
     return f.format(new Date()); }catch(e){ return ''; }
 }
 
-/* ---------- موتور محاسبات (قفل‌شده مطابق شیوه‌نامه ۱۴۰۵) ---------- */
+/* ---------- موتور محاسبات (مطابق شیوه‌نامه ۱۴۰۵) ---------- */
 function effectiveHours(h){
   h = num(h);
   if(h<=100) return h;
@@ -85,7 +85,7 @@ function defaultAccounts(s){
     sheba:s['acc'+i+'.sheba']||'',shetab:s['acc'+i+'.shetab']||''}));
 }
 function blankData(){
-  return {centerName:'',headName:'',gDir:'گلستان', gDirName:'حمزه کرایلو',partyTitle:'',partyRep:'',partyPost:'',
+  return {centerName:'',headName:'',gDir:'گلستان',gDirName:'حمزه کرایلو',partyTitle:'',partyRep:'',partyPost:'',
     partyReg:'',partyTel:'',partyAddr:'',letterNo:'',letterDate:'',
     courseTitle:'',courseCode:'',khoshe:'services',stdHours:0,sessionHours:4,nLow:0,nHigh:0,
     workshop:'',instructor:'',days:'شنبه تا سه‌شنبه',startTime:'8 تا 12',startDate:'',endDate:'',
@@ -238,8 +238,8 @@ function updateSummary(){
 function renderReview(c){
   const d=state.data, li=(k,v)=>`<div><b>${k}:</b> ${v}</div>`;
   $('review').innerHTML =
-    li('طرف اول',`${d.headName} — رئیس ${d.centerName}`)+
-    li('طرف دوم (نهاد ۱)',`${d.partyRep} (${d.partyPost}) — ${d.partyTitle}`)+
+    li('طرف اول',`${d.partyRep} (${d.partyPost}) — ${d.partyTitle}`)+
+    li('طرف دوم',`${d.gDirName} — مدیرکل ${d.gDir}`)+
     li('دوره',`${d.courseTitle} — خوشه ${KHOSHE[d.khoshe].name} — ${faD(d.stdHours)} ساعت — ${faD(c.pd)} نفر-روز`)+
     li('کارآموزان',`دهک ۵−: ${faD(d.nLow)} نفر — دهک ۶+: ${faD(d.nHigh)} نفر — جمع: ${faD(c.total)} نفر`)+
     li('نرخ هر نفر-روز',`${fmt(c.netRate)} ریال (مرجع ${fmt(c.ref)} منهای ${faD(c.W1)}٪ نهاد ۱)`)+
